@@ -15,6 +15,37 @@ makeCacheMatrix <- function(x = matrix()) {
              settheinverse = settheinverse,gettheinverse = gettheinverse)
 }
 
+## example:
+## > x <- diag(2, 3)
+## > x
+##      [,1] [,2] [,3]
+## [1,]    2    0    0
+## [2,]    0    2    0
+## [3,]    0    0    2
+## > makeCacheMatrix(x)
+## $set
+## function (j) 
+## {
+##     x <<- j
+##     f <<- NULL
+## }
+## <environment: 0x0000000003816cf8>
+## 
+## $get
+## function () 
+## x
+## <environment: 0x0000000003816cf8>
+## 
+## $settheinverse
+## function (inverse) 
+## f <<- inverse
+## <environment: 0x0000000003816cf8>
+## 
+## $gettheinverse
+## function () 
+## f
+## <environment: 0x0000000003816cf8>
+
 
 ## cacheSolve creates the inverse of the makeCacheMatrix function. If the inverse is calculate, than it will retrieve the inverse from the cache.
 
@@ -30,3 +61,17 @@ cacheSolve <- function(x, ...) {
       x$settheinverse(f)
       f
 }
+
+## Example:
+## > x <- diag(2, 3)
+## > x
+##      [,1] [,2] [,3]
+## [1,]    2    0    0
+## [2,]    0    2    0
+## [3,]    0    0    2
+## > z <- makeCacheMatrix(x)
+## > cacheSolve(z)
+##      [,1] [,2] [,3]
+## [1,]  0.5  0.0  0.0
+## [2,]  0.0  0.5  0.0
+## [3,]  0.0  0.0  0.5
